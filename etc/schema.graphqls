@@ -1,0 +1,13 @@
+type Query {
+    getThemeDataByStore : ThemeData @resolver(class: "Swissup\\PwaStudioIntegration\\Model\\Resolver\\ThemeDataResolver")
+    @doc(description: "The theme data")
+}
+
+type ThemeData @doc(description: "The type contains information about a store config") {
+    theme_id : Int @doc(description: "The ID number assigned to the theme")
+    store_id : Int @doc(description: "The STORE ID number assigned to the theme")
+    code : String @doc(description: "A code assigned to the theme")
+    area : String @doc(description: "A area (frontend) assigned to the theme")
+    theme_path : String @doc(description: "A path (code) assigned to the theme")
+    theme_title : String @doc(description: "A title assigned to the theme")
+}
