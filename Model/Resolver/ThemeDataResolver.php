@@ -15,9 +15,24 @@ use \Magento\Framework\View\Design\Theme\ThemeProviderInterface;
 class ThemeDataResolver implements ResolverInterface
 {
     /**
+     * @var ScopeConfigInterface
+     */
+    private $scopeConfig;
+
+    /**
      * @var StoreManagerInterface
      */
     private $storeManager;
+
+    /**
+     * @var ThemeProviderInterface
+     */
+    private $themeProvider;
+
+    /**
+     * @var int
+     */
+    private $storeId = false;
 
     /**
      * @param ScopeConfigInterface $scopeConfig
@@ -43,13 +58,25 @@ class ThemeDataResolver implements ResolverInterface
         $themeId = $this->scopeConfig->getValue(
             \Magento\Framework\View\DesignInterface::XML_PATH_THEME_ID,
             \Magento\Store\Model\ScopeInterface::SCOPE_STORE,
-            $this->storeManager->getStore()->getId()
+            $this->getStoreId()
         );
 
         /** @var $theme \Magento\Framework\View\Design\ThemeInterface */
         $theme = $this->themeProvider->getThemeById($themeId);
 
         return $theme;
+    }
+
+    /**
+     * @return int
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
+     */
+    private function getStoreId()
+    {
+        if ($this->storeId === false) {
+            $this->storeId = $this->storeManager->getStore()->getId();
+        }
+        return $this->storeId;
     }
 
     /**
@@ -63,7 +90,7 @@ class ThemeDataResolver implements ResolverInterface
         array $args = null
     ) {
         $data = $this->getTheme()->getData();
-        $data['store_id'] = $this->storeManager->getStore()->getId();
+        $data['store_id'] = $this->getStoreId();
         return $data;
     }
 }
