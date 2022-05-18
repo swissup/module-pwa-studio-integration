@@ -14,6 +14,13 @@ There are several ways to install extension for clients:
     - Install the sources directly from [our repository](https://docs.swissuplabs.com/m2/extensions/pwa-studio-integration/installation/composer/) - **recommended**
     - Download archive and use [manual installation](https://docs.swissuplabs.com/m2/extensions/pwa-studio-integration/installation/manual/)
 
+```bash
+cd <magento_root>
+composer require swissup/module-pwa-studio-integration 
+bin/magento module:enable Swissup_PwaStudioIntegration Swissup_Core
+bin/magento setup:upgrade
+bin/magento setup:di:compile
+```
 
 ###### For maintainers
 
