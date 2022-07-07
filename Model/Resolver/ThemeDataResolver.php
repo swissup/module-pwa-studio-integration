@@ -50,6 +50,7 @@ class ThemeDataResolver implements ResolverInterface
     }
 
     /**
+     *
      * @return \Magento\Framework\View\Design\ThemeInterface
      * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
@@ -84,7 +85,7 @@ class ThemeDataResolver implements ResolverInterface
      */
     public function resolve(
         Field $field,
-              $context,
+        $context,
         ResolveInfo $info,
         array $value = null,
         array $args = null
