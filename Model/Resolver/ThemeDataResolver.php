@@ -30,9 +30,9 @@ class ThemeDataResolver implements ResolverInterface
     private $themeProvider;
 
     /**
-     * @var int
+     * @var int|null
      */
-    private $storeId = false;
+    private $storeId = null;
 
     /**
      * @param ScopeConfigInterface $scopeConfig
@@ -61,7 +61,7 @@ class ThemeDataResolver implements ResolverInterface
             $this->getStoreId()
         );
 
-        /** @var $theme \Magento\Framework\View\Design\ThemeInterface */
+        /** @var \Magento\Framework\View\Design\ThemeInterface $theme */
         $theme = $this->themeProvider->getThemeById($themeId);
 
         return $theme;
@@ -73,7 +73,7 @@ class ThemeDataResolver implements ResolverInterface
      */
     private function getStoreId()
     {
-        if ($this->storeId === false) {
+        if ($this->storeId === null) {
             $this->storeId = $this->storeManager->getStore()->getId();
         }
         return $this->storeId;
@@ -89,7 +89,9 @@ class ThemeDataResolver implements ResolverInterface
         array $value = null,
         array $args = null
     ) {
-        $data = $this->getTheme()->getData();
+        /** @var \Magento\Theme\Model\Theme $theme */
+        $theme = $this->getTheme();
+        $data = $theme->getData();
         $data['store_id'] = $this->getStoreId();
         return $data;
     }

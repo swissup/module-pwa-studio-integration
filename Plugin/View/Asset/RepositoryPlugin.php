@@ -32,7 +32,7 @@ class RepositoryPlugin
     /**
      * Plugin before method getUrlWithParams
      *
-     * @param  Magento\Framework\View\Asset\Repository
+     * @param  \Magento\Framework\View\Asset\Repository $subject
      * @param  string $fileId
      * @param  array $params
      * @return null|array
